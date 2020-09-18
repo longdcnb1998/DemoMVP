@@ -13,23 +13,27 @@ class TaskAdapter() : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     private var tasks = mutableListOf<Task>()
 
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        var mTvTitle: TextView = itemView.findViewById(R.id.title)
-        var mTvDes: TextView = itemView.findViewById(R.id.description)
+
+        var tvTitle: TextView = itemView.findViewById(R.id.title)
+        var tvDescription: TextView = itemView.findViewById(R.id.description)
+
+        fun bindData(task: Task) {
+            tvTitle.text = task.title
+            tvDescription.text = task.description
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false))
+        return ViewHolder(
+            LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
+        )
     }
 
     override fun getItemCount(): Int = tasks.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val viewHolder: ViewHolder = holder
-        tasks[position].let {
-            val task = tasks[position]
-            viewHolder.mTvTitle.text = task.title
-            viewHolder.mTvDes.text = task.description
-        }
+        viewHolder.bindData(tasks[position])
     }
 
     fun updateData(tasks: List<Task>) {
