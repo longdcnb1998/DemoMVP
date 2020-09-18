@@ -1,4 +1,4 @@
-package com.example.demomvp.ui.main
+package com.example.demomvp
 
 import com.example.demomvp.R
 import com.example.demomvp.ui.base.BaseActivity

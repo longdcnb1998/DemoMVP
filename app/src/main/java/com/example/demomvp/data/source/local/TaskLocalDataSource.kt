@@ -19,9 +19,9 @@ class TaskLocalDataSource private constructor(private val taskDAO: TaskDAO) : Ta
     }
 
     override fun getTasks(callBack: DataAccessCallBack<List<Task>>) {
-        LocalLoadedAsyncTask<LocalLoadedAsyncTask.EmptyInput, List<Task>>(callBack) {
+        LocalLoadedAsyncTask<Unit, List<Task>>(callBack) {
             taskDAO.getTask()
-        }.execute(LocalLoadedAsyncTask.EmptyInput)
+        }.execute(Unit)
     }
 
     override fun deleteTask(task: Task, callBack: DataAccessCallBack<Boolean>) {

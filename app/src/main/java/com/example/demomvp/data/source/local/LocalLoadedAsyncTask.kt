@@ -21,6 +21,4 @@ class LocalLoadedAsyncTask<P, T>(
         super.onPostExecute(result)
         result?.let(mCallback::onLoadDataSuccess) ?: mCallback::onLoadDataFailed
     }
-
-    object EmptyInput
 }

@@ -14,6 +14,5 @@ interface TaskContract {
     interface Presenter : BasePresenter {
         val view: View
         fun addTask(task: Task)
-        fun getTasks()
     }
 }

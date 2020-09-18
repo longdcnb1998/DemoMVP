@@ -24,7 +24,7 @@ class TaskPresenter(
         })
     }
 
-    override fun getTasks() {
+    private fun getTasks() {
         taskRepository.getTasks(object : DataAccessCallBack<List<Task>> {
             override fun onLoadDataSuccess(data: List<Task>) {
                 view.showTasks(data)
