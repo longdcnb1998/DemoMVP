@@ -37,7 +37,8 @@ class TaskAdapter() : RecyclerView.Adapter<TaskAdapter.ViewHolder>() {
     }
 
     fun updateData(tasks: List<Task>) {
-        this.tasks = tasks as ArrayList<Task>
+        this.tasks.clear()
+        this.tasks.addAll(tasks)
         notifyDataSetChanged()
     }
 }

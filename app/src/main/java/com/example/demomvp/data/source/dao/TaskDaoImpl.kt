@@ -7,7 +7,6 @@ import com.example.demomvp.data.source.local.AppDatabase
 
 class TaskDaoImpl private constructor(private val database: AppDatabase) : TaskDAO {
 
-
     override fun addTask(task: Task): Boolean =
         database.writableDatabase.insert(Task.TABLE_NAME, null, task.getContentValues()) > 0
 

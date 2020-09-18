@@ -19,7 +19,7 @@ class LocalLoadedAsyncTask<P, T>(
 
     override fun onPostExecute(result: T?) {
         super.onPostExecute(result)
-        result?.let(callback::onLoadDataSuccess) ?: callback::onLoadDataFailed
+        result?.let(callback::onLoadDataSuccess) ?: exception?.let(callback::onLoadDataFailed)
     }
 
     object EmptyInput
