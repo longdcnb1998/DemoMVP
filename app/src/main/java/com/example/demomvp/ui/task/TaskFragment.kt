@@ -5,6 +5,7 @@ import com.example.demomvp.R
 import com.example.demomvp.data.model.Task
 import com.example.demomvp.data.source.TaskRepository
 import com.example.demomvp.data.source.dao.TaskDaoImpl
+import com.example.demomvp.data.source.local.AppDatabase
 import com.example.demomvp.data.source.local.TaskLocalDataSource
 import com.example.demomvp.data.source.remote.TaskRemoteDataSource
 import com.example.demomvp.showToast
@@ -13,7 +14,7 @@ import kotlinx.android.synthetic.main.fragment_task.*
 
 class TaskFragment : BaseFragment(), TaskContract.View, View.OnClickListener {
     private val taskAdapter by lazy {
-        context?.let { TaskAdapter(it) }
+        TaskAdapter()
     }
     override val layoutResource: Int
         get() = R.layout.fragment_task
@@ -36,8 +37,9 @@ class TaskFragment : BaseFragment(), TaskContract.View, View.OnClickListener {
 
     private fun initPresenter() {
         val context = context ?: return
-        val localDataSource = TaskLocalDataSource.getInstance(TaskDaoImpl.getInstance(context))
-        val remoteDataSource = TaskRemoteDataSource.getInstance(TaskDaoImpl.getInstance(context))
+        val database = AppDatabase.getInstance(context)
+        val localDataSource = TaskLocalDataSource.getInstance(TaskDaoImpl.getInstance(database))
+        val remoteDataSource = TaskRemoteDataSource.getInstance(TaskDaoImpl.getInstance(database))
         val repository = TaskRepository.getInstances(localDataSource, remoteDataSource)
         presenter = TaskPresenter(this, repository)
     }
@@ -55,15 +57,12 @@ class TaskFragment : BaseFragment(), TaskContract.View, View.OnClickListener {
         context?.showToast(obj)
     }
 
-    companion object {
-        fun newInstance() = TaskFragment()
-    }
 
     override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.imageAdd -> {
-                presenter?.addTask(Task(0, "LongDinh", "Description"))
-            }
-        }
+        if (v?.id == R.id.imageAdd) presenter?.addTask(Task(0, "LongDinh", "Description"))
+    }
+
+    companion object {
+        fun newInstance() = TaskFragment()
     }
 }

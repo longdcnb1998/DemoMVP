@@ -7,16 +7,6 @@ class TaskRepository private constructor(
     private val remote: TaskDataSource.Remote
 ) : TaskDataSource.Local, TaskDataSource.Remote {
 
-    companion object {
-        private var mInstances: TaskRepository? = null
-        fun getInstances(
-            local: TaskDataSource.Local,
-            remote: TaskDataSource.Remote
-        ): TaskRepository {
-            return mInstances ?: TaskRepository(local, remote).also { mInstances = it }
-        }
-    }
-
     override fun addTask(task: Task, callBack: DataAccessCallBack<Boolean>) {
         local.addTask(task, callBack)
     }
@@ -35,4 +25,11 @@ class TaskRepository private constructor(
 
     override fun loadTask(task: Task, callBack: DataAccessCallBack<Boolean>) {}
 
+    companion object {
+        private var INSTANCE: TaskRepository? = null
+        fun getInstances(
+            local: TaskDataSource.Local,
+            remote: TaskDataSource.Remote
+        ): TaskRepository = INSTANCE ?: TaskRepository(local, remote).also { INSTANCE = it }
+    }
 }

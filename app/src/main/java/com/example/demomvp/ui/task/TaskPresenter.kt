@@ -10,6 +10,9 @@ class TaskPresenter(
     private val taskRepository: TaskRepository
 ) : TaskContract.Presenter {
 
+    override fun start() {
+        getTasks()
+    }
 
     override fun addTask(task: Task) {
         taskRepository.addTask(task, object : DataAccessCallBack<Boolean> {
@@ -35,9 +38,4 @@ class TaskPresenter(
             }
         })
     }
-
-    override fun start() {
-        getTasks()
-    }
-
 }

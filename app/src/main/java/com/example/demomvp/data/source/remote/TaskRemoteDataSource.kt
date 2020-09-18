@@ -9,8 +9,8 @@ class TaskRemoteDataSource private constructor(taskDao: TaskDAO) : TaskDataSourc
     override fun loadTask(task: Task, callBack: DataAccessCallBack<Boolean>) {}
 
     companion object {
-        private var mInstance: TaskRemoteDataSource? = null
+        private var INSTANCE: TaskRemoteDataSource? = null
         fun getInstance(taskDao: TaskDAO): TaskRemoteDataSource =
-            mInstance ?: TaskRemoteDataSource(taskDao).also { mInstance = it }
+            INSTANCE ?: TaskRemoteDataSource(taskDao).also { INSTANCE = it }
     }
 }

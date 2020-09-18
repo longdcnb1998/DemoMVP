@@ -31,8 +31,8 @@ class TaskLocalDataSource private constructor(private val taskDAO: TaskDAO) : Ta
     }
 
     companion object {
-        private var mInstance: TaskLocalDataSource? = null
+        private var INSTANCE: TaskLocalDataSource? = null
         fun getInstance(taskDao: TaskDAO): TaskLocalDataSource =
-            mInstance ?: TaskLocalDataSource(taskDao).also { mInstance = it }
+            INSTANCE ?: TaskLocalDataSource(taskDao).also { INSTANCE = it }
     }
 }

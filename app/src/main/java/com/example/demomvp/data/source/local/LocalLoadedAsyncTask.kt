@@ -4,7 +4,7 @@ import android.os.AsyncTask
 import com.example.demomvp.data.source.DataAccessCallBack
 
 class LocalLoadedAsyncTask<P, T>(
-    private val mCallback: DataAccessCallBack<T>,
+    private val callback: DataAccessCallBack<T>,
     private val handle: (P) -> T?
 ) : AsyncTask<P, Void, T?>() {
 
@@ -19,7 +19,7 @@ class LocalLoadedAsyncTask<P, T>(
 
     override fun onPostExecute(result: T?) {
         super.onPostExecute(result)
-        result?.let(mCallback::onLoadDataSuccess) ?: mCallback::onLoadDataFailed
+        result?.let(callback::onLoadDataSuccess) ?: callback::onLoadDataFailed
     }
 
     object EmptyInput

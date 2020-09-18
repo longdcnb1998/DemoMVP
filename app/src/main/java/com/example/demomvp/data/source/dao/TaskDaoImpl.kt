@@ -5,9 +5,8 @@ import android.content.Context
 import com.example.demomvp.data.model.Task
 import com.example.demomvp.data.source.local.AppDatabase
 
-class TaskDaoImpl private constructor(context: Context) : TaskDAO {
+class TaskDaoImpl private constructor(private val database: AppDatabase) : TaskDAO {
 
-    private val database = AppDatabase.getInstance(context)
 
     override fun addTask(task: Task): Boolean =
         database.writableDatabase.insert(Task.TABLE_NAME, null, task.getContentValues()) > 0
@@ -39,9 +38,9 @@ class TaskDaoImpl private constructor(context: Context) : TaskDAO {
     }
 
     companion object {
-        private var mInstance: TaskDaoImpl? = null
+        private var INSTANCE : TaskDaoImpl? = null
 
-        fun getInstance(context: Context) =
-            mInstance ?: TaskDaoImpl(context).also { mInstance = it }
+        fun getInstance(database: AppDatabase) =
+            INSTANCE ?: TaskDaoImpl(database = database).also { INSTANCE = it }
     }
 }
